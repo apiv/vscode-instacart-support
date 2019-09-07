@@ -1,0 +1,65 @@
+{
+	"name": "modules-containers-support",
+	"displayName": "Modules/Containers Support",
+	"description": "Various shortcuts and commands for Modules/Containers development.",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.38.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.goToSerializer",
+		"onCommand:extension.containerStub"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.goToSerializer",
+				"title": "Modules/Containers: Go to serializer"
+			},
+			{
+				"command": "extension.containerStub",
+				"title": "Modules/Containers: Insert container stub"
+			}
+		],
+		"keybindings": [
+      {
+        "command": "extension.goToSerializer",
+        "key": "ctrl+alt+s",
+        "mac": "cmd+alt+s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.containerStub",
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c",
+        "when": "editorTextFocus"
+      }
+    ]
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.38.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"tslint": "^5.12.1",
+		"typescript": "^3.3.1",
+		"vscode-test": "^1.0.2"
+	},
+	"dependencies": {
+		"@types/mkdirp": "^0.5.2",
+		"mkdirp": "^0.5.1"
+	}
+}
