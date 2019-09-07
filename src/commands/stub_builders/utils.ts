@@ -21,7 +21,8 @@ function buildModulesClose(modules: string[]) {
 }
 
 export function buildStub(modules: string[], stubBuilder: Function) {
-  let str = ''
+  let str = '# frozen_string_literal: true'
+  str += "\n"
   str += buildModulesOpen(modules)
 
   const templateIndent = buildIndent(modules.length - 1)
