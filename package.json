@@ -11,7 +11,7 @@
 	],
 	"activationEvents": [
 		"onCommand:extension.goToSerializer",
-		"onCommand:extension.containerStub"
+		"onCommand:extension.buildStub"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -21,8 +21,8 @@
 				"title": "Modules/Containers: Go to serializer"
 			},
 			{
-				"command": "extension.containerStub",
-				"title": "Modules/Containers: Insert container stub"
+				"command": "extension.buildStub",
+				"title": "Modules/Containers: Insert stub"
 			}
 		],
 		"keybindings": [
@@ -33,7 +33,7 @@
         "when": "editorTextFocus"
       },
       {
-        "command": "extension.containerStub",
+        "command": "extension.buildStub",
         "key": "ctrl+alt+c",
         "mac": "cmd+alt+c",
         "when": "editorTextFocus"

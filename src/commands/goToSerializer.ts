@@ -28,10 +28,10 @@ function getRelated(file: vscode.TextDocument) {
   const filename = file.fileName
   const contents = file.getText()
 
-  if (FILE_CONTENTS_SERIALIZER_REGEX.test(contents)) {
-    const match = contents.match(FILE_CONTENTS_SERIALIZER_REGEX) || []
-    return match[1]
-  }
+  // if (FILE_CONTENTS_SERIALIZER_REGEX.test(contents)) {
+  //   const match = contents.match(FILE_CONTENTS_SERIALIZER_REGEX) || []
+  //   return match[1]
+  // }
 
   if (isModule(filename)) {
     return moduleToSerializerPath(filename)
@@ -73,8 +73,6 @@ export function register(context: vscode.ExtensionContext) {
 		let relative: string = vscode.workspace.asRelativePath(related);
 		let fileExists: boolean = fs.existsSync(related);
 		let dirname: string = path.dirname(related);
-		
-		//console.log('fileExists', fileExists);
 
 		if (fileExists) {
 			openFile(related);
@@ -82,7 +80,7 @@ export function register(context: vscode.ExtensionContext) {
 			prompt(relative, function() {
 				mkdirp.sync(dirname);
 				fs.closeSync(fs.openSync(related, 'w'));
-				openFile(related);
+				openFile(path.join(vscode.workspace.rootPath || '', related));
 			});
 		}
   });
