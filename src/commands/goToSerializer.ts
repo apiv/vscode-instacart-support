@@ -75,7 +75,7 @@ export function register(context: vscode.ExtensionContext) {
 		let dirname: string = path.dirname(related);
 
 		if (fileExists) {
-			openFile(related);
+			openFile(path.join(vscode.workspace.rootPath || '', related));
 		} else {
 			prompt(relative, function() {
 				mkdirp.sync(dirname);

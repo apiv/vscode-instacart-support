@@ -3,12 +3,14 @@
 import * as vscode from 'vscode';
 import * as goToSerializer from './commands/goToSerializer';
 import * as buildStub from './commands/buildStub';
+import * as copyContainerUrl from './commands/copyContainerUrl';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	buildStub.register(context);
 	goToSerializer.register(context);
+	copyContainerUrl.register(context);
 }
 
 // this method is called when your extension is deactivated

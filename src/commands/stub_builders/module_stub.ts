@@ -3,7 +3,7 @@ export function buildModuleStub(modules: string[]) {
 
   return [
     `class ${className} < NextGenModuleBase`,
-    '  def serializer',
+    '  def serializer_class',
     `    ::ApiV3::${modules.slice(1).join('::')}Serializer`,
     '  end',
     '',
