@@ -6,7 +6,11 @@ import * as mkdirp from 'mkdirp';
 const FILENAME_MODULE_REGEX = /app\/models\/modules\/(.*?)\.rb/
 const FILENAME_SERIALIZER_REGEX = /components\/api_v3\/app\/serializers\/api_v3\/(.*?)_serializer\.rb/
 
-const FILE_CONTENTS_SERIALIZER_REGEX = /def serializer_class\n(.*?)\n\W+end/gm
+const FILE_CONTENTS_SERIALIZER_REGEX = /def serializer_class\n(.*?)\n\W+end/m
+
+function snakeCase(str: string) {
+	return str.replace(/[A-Z]/g, (m) => '_' + m.toLowerCase()).slice(1)
+}
 
 function isModule(filename: string) {
   return FILENAME_MODULE_REGEX.test(filename)
@@ -30,15 +34,18 @@ function serializerToModulePath(filename: string) {
 
 function getRelated(file: vscode.TextDocument) {
   const filename = file.fileName
-  const contents = file.getText()
-
-  // if (FILE_CONTENTS_SERIALIZER_REGEX.test(contents)) {
-  //   const match = contents.match(FILE_CONTENTS_SERIALIZER_REGEX) || []
-  //   return match[1]
-  // }
 
   if (isModule(filename)) {
-    return moduleToSerializerPath(filename)
+		const contents = file.getText()
+
+		if (FILE_CONTENTS_SERIALIZER_REGEX.test(contents)) {
+			const match = contents.match(FILE_CONTENTS_SERIALIZER_REGEX) || []
+			if (match[1]) {
+				return `components/api_v3/app/serializers/${match[1].trim().split('::').map(snakeCase).join('/')}.rb`
+			}
+		}	
+
+		return moduleToSerializerPath(filename)
   } else if (isSerializer(filename)) {
     return serializerToModulePath(filename)
   }
