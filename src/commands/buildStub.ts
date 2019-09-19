@@ -4,10 +4,12 @@ import { buildStub } from './stub_builders/utils'
 import { buildContainerStub } from './stub_builders/container_stub'
 import { buildSerializerStub } from './stub_builders/serializer_stub'
 import { buildModuleStub } from './stub_builders/module_stub'
+import { buildDefaultStub } from './stub_builders/default_stub';
 
 const FILENAME_CONTAINER_PATH_REGEX = /app\/models\/(containers\/.*?)\.rb/
 const FILENAME_SERIALIZER_PATH_REGEX = /app\/serializers\/(.*?)\.rb/
 const FILENAME_MODULE_PATH_REGEX = /app\/models\/(modules\/.*?)\.rb/
+const FILENAME_DEFAULT_PATH_REGEX = /app\/[a-z0-9\_]*\/(.*?)\.rb/
 
 function titleCase(str: string) {
 	return str.replace(/(^\w|_\w)/g, function(m){return (m[1] || m[0]).toUpperCase();});
@@ -25,6 +27,9 @@ function buildStubFromFilename(filename: string): string {
 	} else if (match = filename.match(FILENAME_MODULE_PATH_REGEX)) {
 		const modules = match[1].split('/').map(titleCase)
 		return buildStub(modules, buildModuleStub)
+	} else if (match = filename.match(FILENAME_DEFAULT_PATH_REGEX)) {
+		const modules = match[1].split('/').map(titleCase)
+		return buildStub(modules, buildDefaultStub)
 	} else {
 		return ''
 	}
