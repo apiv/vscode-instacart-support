@@ -1,0 +1,23 @@
+#!/bin/bash
+EXTENSION_NAME="modules-containers-support"
+EXTENSION_PATH="$(pwd)"
+VSCODE_EXTENSIONS_PATH="${HOME}/.vscode/extensions"
+DESIRED_PATH="${VSCODE_EXTENSIONS_PATH}/${EXTENSION_NAME}"
+
+echo "Compiling..."
+yarn && yarn compile
+
+echo "Checking if extension is installed already"
+if test -e $DESIRED_PATH;
+  then
+  echo "Extension already installed, skipping symlink"
+else
+  echo "Extension not installed, creating symlink"
+  (cd "${VSCODE_EXTENSIONS_PATH}"; ln -s "${EXTENSION_PATH}" "${EXTENSION_NAME}")
+  echo "Symlink created"
+fi
+
+echo ""
+echo "Complete!"
+echo ""
+echo "Reload vscode to use the Modules/Containers commands"
