@@ -87,19 +87,19 @@ export function register(context: vscode.ExtensionContext) {
 		}
 
 		let relative: string = vscode.workspace.asRelativePath(related);
-		let fileExists: boolean = fs.existsSync(related);
 		let absolutePath: string = path.join(vscode.workspace.rootPath || '', related);
 		let absoluteDirname: string = path.dirname(absolutePath)
+		let fileExists: boolean = fs.existsSync(absolutePath);
 
 		if (fileExists) {
-			openFile(path.join(vscode.workspace.rootPath || '', related));
+			openFile(absolutePath);
 		} else {
 			prompt(relative, function() {
 				if (!fs.existsSync(absoluteDirname)) {
 					mkdirp.sync(absoluteDirname);
 				}
 				fs.closeSync(fs.openSync(absolutePath, 'w'));
-				openFile(path.join(vscode.workspace.rootPath || '', relative));
+				openFile(absolutePath);
 			});
 		}
   });
