@@ -3,12 +3,15 @@ export function buildContainerStub(modules: string[]) {
 
   return [
     `class ${className} < NextGenContainerBase`,
-    '  def modules',
-    '    []',
-    '  end',
+    '',
+    '  MODULE_CLASSES = []',
     '',
     '  def title',
     '    ""',
+    '  end',
+    '',
+    '  def module_classes',
+    '    MODULE_CLASSES',
     '  end',
     'end'
   ]

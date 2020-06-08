@@ -20,19 +20,25 @@ function buildModulesClose(modules: string[]) {
   return str
 }
 
-export function buildStub(modules: string[], stubBuilder: Function) {
-  let str = '# frozen_string_literal: true'
-  str += "\n"
-  str += buildModulesOpen(modules)
-
-  const templateIndent = buildIndent(modules.length - 1)
+export function buildUnwrappedStub(modules: string[], stubBuilder: Function, indentationLevel: number = 0) {
+  const templateIndent = buildIndent(indentationLevel)
   const definition = stubBuilder(modules)
+
+  let str = ""
 
   for (let i = 0; i < definition.length; i++) {
     let line = definition[i]
     str += `\n${line.length > 0 ? templateIndent: ''}${line}`
   }
 
+  return str
+}
+
+export function buildStub(modules: string[], stubBuilder: Function) {
+  let str = '# frozen_string_literal: true'
+  str += "\n"
+  str += buildModulesOpen(modules)
+  str += buildUnwrappedStub(modules, stubBuilder, modules.length - 1)
   str += buildModulesClose(modules)
   return str
 }

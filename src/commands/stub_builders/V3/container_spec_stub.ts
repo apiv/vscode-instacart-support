@@ -1,0 +1,31 @@
+export function buildContainerSpecStub(modules: string[]) {
+  return [
+    `require 'rails_helper'`,
+    ``,
+    `describe ${modules.join('::')}, type: :container do`,
+    '  let!(:warehouse) { FactoryBot.create(:warehouse) }',
+    '  let(:user) { FactoryBot.create(:user) }',
+    '  let(:inventory_params) { ApiV3::InventoryParams.new(user, warehouse.id, nil, nil) }',
+    '  let(:container_ref) { "YOUR_REF_HERE" }',
+    '',
+    '  subject do',
+    '    described_class.new(',
+    '      user: user,',
+    '      inventory_params: inventory_params,',
+    '      request_type: :sync,',
+    '      container_ref: container_ref',
+    '    )',
+    '  end',
+    '',
+    '  it "can be serialized" do',
+    '    serialized_container = ApiV3::ContainerDetailSerializer.new(subject).as_json',
+    '    expect(serialized_container).to be_present',
+    '  end',
+    '',
+    '  it "passes container response validation" do',
+    '    serialized_container = ApiV3::ContainerDetailSerializer.new(subject).as_json',
+    '    expect{ ApiV3::ResponseValidators::ContainerResponseValidator.new({container_context: nil}).validate(serialized_container) }.to_not raise_error',
+    '  end',
+    'end'
+  ]
+}

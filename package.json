@@ -12,22 +12,22 @@
 	"activationEvents": [
 		"onCommand:extension.goToSerializer",
 		"onCommand:extension.buildStub",
-		"onCommand:extension.copyContainerUrl"
+		"onCommand:extension.copyModulePath"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "extension.goToSerializer",
-				"title": "Modules/Containers: Go to serializer"
+				"title": "Instacart/V3: Go to serializer"
 			},
 			{
 				"command": "extension.buildStub",
-				"title": "Modules/Containers: Insert stub"
+				"title": "Instacart/V3: Insert stub"
 			},
 			{
-				"command": "extension.copyContainerUrl",
-				"title": "Modules/Containers: Copy container API URL"
+				"command": "extension.copyModulePath",
+				"title": "Instacart/Ruby: Copy ruby module path [BETA]"
 			}
 		],
 		"keybindings": [
@@ -41,6 +41,12 @@
 				"command": "extension.buildStub",
 				"key": "ctrl+alt+c",
 				"mac": "cmd+alt+c",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "extension.copyModulePath",
+				"key": "ctrl+alt+m",
+				"mac": "cmd+alt+m",
 				"when": "editorTextFocus"
 			}
 		]
