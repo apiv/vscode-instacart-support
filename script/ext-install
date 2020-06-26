@@ -1,5 +1,5 @@
 #!/bin/bash
-EXTENSION_NAME="modules-containers-support"
+EXTENSION_NAME="instacart-support"
 EXTENSION_PATH="$(pwd)"
 VSCODE_EXTENSIONS_PATH="${HOME}/.vscode/extensions"
 DESIRED_PATH="${VSCODE_EXTENSIONS_PATH}/${EXTENSION_NAME}"
